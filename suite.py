@@ -52,3 +52,20 @@ class GeometricalSuite(Suite):
             f"= {answer}"       
         ]
         return answer, dev
+    
+    def get_somme(self, first_ind, last_ind):
+        
+        term1 = self.get_term(first_ind)[0]
+        multiplier = last_ind - first_ind + 1
+        diviser = 1 - self.raison
+        first_part = (1 - self.raison ** multiplier) / diviser
+        answer = term1 * first_part
+        
+        dev = ["""RAPPEL DE LA FORMULE : (1er terme de la somme) x (1 - q^(nb de termes de la somme) / 1 - q)\n/!\ nombre de termes de la somme = indice du dernier terme de la somme - indice du dernier + 1""",
+               f"Somme = u({first_ind}) x ((1 - {self.raison}^({last_ind} - {first_ind} + 1) / 1 - {self.raison})",
+               f"= {term1} x (1 - {self.raison}^{multiplier} / {diviser})",
+               f"= {term1} x {first_part}",
+               f"= {answer}"
+        ]
+        
+        return answer, dev

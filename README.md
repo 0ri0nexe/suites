@@ -23,5 +23,5 @@ python3 main.py
 ```
 ## Features
 
-- Comprend des choix en consoles interactif grêce à la librairie questionary
+- Comprend des choix en consoles interactif grâce à la librairie questionary
 - Utilisation simple et experience épurée

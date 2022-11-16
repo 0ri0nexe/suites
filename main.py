@@ -1,5 +1,4 @@
-from suite import ArithmeticSuite
-
+from suite import ArithmeticSuite, GeometricalSuite
 import questionary
 
 def question(message:str):
@@ -22,10 +21,12 @@ def create_suite():
             first_term_value = int(question(f"quel est la valeur du premier terme ? u({first_term})"))
             
             if suite_type == "arithmétique":
-                raison = int(question("r ="))
+                raison = float(question("r ="))
                 return ArithmeticSuite(raison, first_term, first_term_value)
             else:
-                raison = int(question("q ="))
+                raison = float(question("q ="))
+                return GeometricalSuite(raison, first_term, first_term_value)
+                
             valid = True    
         except ValueError:
             print("merci de mettre une valeure numérique.")
@@ -65,9 +66,13 @@ while running:
         while not valid:
             try:
                 indice = int(question("terme d'indice :"))
-                valid = True
+                
+                if indice >= suite.first_term:
+                    valid = True
+                else:
+                    print(f"Merci de demander un indice qui ne dépasse pas le premier de la suite ({suite.first_term})")
             except ValueError:
-                print("merci de mettre une valeure valide.")
+                print("Merci de mettre une valeure valide.")
         
         answer, dev = suite.get_term(indice)
         print(f"Le terme u({indice}) =", answer)
@@ -86,11 +91,11 @@ while running:
                 first_indice = int(question("Indice du premier terme de la somme :"))
                 last_indice = int(question("Indice du dernier terme de la somme :"))
                 
-                if not first_indice >= suite.get_first_term():
+                if not first_indice >= suite.first_term:
                     print("merci de mettre un indice suppérieur à celui du premier terme de la liste.")
                     
                 elif not last_indice >= first_indice:
-                    print("merci de respecter la condition Indice du premier terme de la somme < ou = au dernier terme de la somme.")
+                    print("merci de respecter la condition : Indice du premier terme de la somme < ou = au dernier terme de la somme.")
                 else:
                     answer, dev = suite.get_somme(first_indice, last_indice)
                     print(f"Somme des indices allant de {first_indice} à {last_indice} = {answer}")
@@ -98,4 +103,3 @@ while running:
                 valid = True
             except ValueError:
                 print("merci de ne mettre que des valeures numériques.")
-            
